@@ -145,7 +145,7 @@ services:
         - backend
 
 ### phpMyAdmin Container ####################################
-    # 
+    #
     # phpmyadmin:
     #   build: ./phpmyadmin
     #   environment:

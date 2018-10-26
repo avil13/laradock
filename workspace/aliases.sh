@@ -56,6 +56,16 @@ alias git-revert="git reset --hard && git clean -df"
 alias gs="git status"
 alias whoops="git reset --hard && git clean -df"
 
+# # # # # # #
+off='\[\033[0m\]'
+Red='\[\033[1;31m'
+Green='\[\033[1;32m'
+cyan='\[\033[0;36m'
+white='\[\033[0;37m'
+new_LINE=$'\n'
+####
+PS1="${Red}\u ${cyan}\w${white}${new_LINE}\$ ${off}"
+
 
 # Create a new directory and enter it
 function mkd() {

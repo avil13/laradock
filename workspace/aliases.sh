@@ -56,6 +56,10 @@ alias git-revert="git reset --hard && git clean -df"
 alias gs="git status"
 alias whoops="git reset --hard && git clean -df"
 
+
+# phpunit
+alias pu='clear && echo "============================" && ./vendor/bin/phpunit'
+
 # # # # # # #
 off='\[\033[0m\]'
 Red='\[\033[1;31m'

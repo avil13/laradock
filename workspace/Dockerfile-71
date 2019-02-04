@@ -110,20 +110,21 @@ RUN chmod -R 644 /etc/cron.d
 
 USER laradock
 COPY ./aliases.sh /home/laradock/aliases.sh
+COPY ./inputrc /home/laradock/.inputrc
 RUN echo "" >> ~/.bashrc && \
     echo "# Load Custom Aliases" >> ~/.bashrc && \
     echo "source /home/laradock/aliases.sh" >> ~/.bashrc && \
-	echo "" >> ~/.bashrc && \
-	sed -i 's/\r//' /home/laradock/aliases.sh && \
-	sed -i 's/^#! \/bin\/sh/#! \/bin\/bash/' /home/laradock/aliases.sh
+    echo "" >> ~/.bashrc && \
+    sed -i 's/\r//' /home/laradock/aliases.sh && \
+    sed -i 's/^#! \/bin\/sh/#! \/bin\/bash/' /home/laradock/aliases.sh
 
 USER root
 RUN echo "" >> ~/.bashrc && \
     echo "# Load Custom Aliases" >> ~/.bashrc && \
     echo "source /home/laradock/aliases.sh" >> ~/.bashrc && \
-	echo "" >> ~/.bashrc && \
-	sed -i 's/\r//' /home/laradock/aliases.sh && \
-	sed -i 's/^#! \/bin\/sh/#! \/bin\/bash/' /home/laradock/aliases.sh
+    echo "" >> ~/.bashrc && \
+    sed -i 's/\r//' /home/laradock/aliases.sh && \
+    sed -i 's/^#! \/bin\/sh/#! \/bin\/bash/' /home/laradock/aliases.sh
 
 #####################################
 # xDebug:
@@ -134,7 +135,7 @@ RUN if [ ${INSTALL_XDEBUG} = true ]; then \
     # Load the xdebug extension only with phpunit commands
     apt-get install -y --force-yes php-xdebug && \
     sed -i 's/^;//g' /etc/php/7.1/cli/conf.d/20-xdebug.ini && \
-    echo "alias phpunit='php -dzend_extension=xdebug.so /var/www/vendor/bin/phpunit'" >> ~/.bashrc \
+    echo "alias phpunit='php -dzend_extension=xdebug.so ./vendor/bin/phpunit'" >> ~/.bashrc \
 ;fi
 # ADD for REMOTE debugging
 COPY ./xdebug.ini /etc/php/7.1/cli/conf.d/xdebug.ini
@@ -365,9 +366,9 @@ ENV INSTALL_LARAVEL_INSTALLER ${INSTALL_LARAVEL_INSTALLER}
 
 RUN if [ ${INSTALL_LARAVEL_INSTALLER} = true ]; then \
     # Install the Laravel Installer
-	echo "" >> ~/.bashrc && \
-	echo 'export PATH="~/.composer/vendor/bin:$PATH"' >> ~/.bashrc \
-	&& composer global require "laravel/installer" \
+    echo "" >> ~/.bashrc && \
+    echo 'export PATH="~/.composer/vendor/bin:$PATH"' >> ~/.bashrc \
+    && composer global require "laravel/installer" \
 ;fi
 
 USER laradock
